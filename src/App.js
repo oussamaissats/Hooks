@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import MoviesList from './MoviesList';   
 import { v4 as uuidv4 } from "uuid";
 import Search from './Search';
+import { BrowserRouter, Route, Link, Router } from "react-router-dom";
+import Description from './Description';
 
 
 
@@ -63,9 +65,17 @@ function App() {
 
   return (
     <div className="App">
-<Search search={search} setRate={setRate} newRate={newRate}/>
+      <header className="App-header">
+        
+      <BrowserRouter>
+      <Search search={search} setRate={setRate} newRate={newRate}/>
       <MoviesList addMovie={addMovie} movies={movies.filter( el=> el.rate>= newRate &&  el.title.toLowerCase().includes(keysearch.toLowerCase().trim()))}/>
-      
+      <Route path="/description/:id" render={(props)=><Description {...props} movies={movies}/>}/>
+      </BrowserRouter>
+      </header>
+
+
+
     </div>
   );
 }
